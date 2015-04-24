@@ -15,8 +15,19 @@ $(document).ready(function()
         }
     });
     
-    registerServiceWorker();
+    if(checkBrowser())
+        registerServiceWorker();
 });
+
+function checkBrowser(){
+    valid = true;
+    if(navigator.sayswho != "Chrome 42"){
+        valid = false;
+        $("#errorMessage").html("You must use Chrome desktop or mobile version 42 or higher.").show();
+    }
+    
+    return valid;
+}
 
 function registerServiceWorker(){
 	// Check for service workers.
@@ -27,8 +38,8 @@ function registerServiceWorker(){
             .then(initializeState);  
 	} 
 	else{
-		//$("input#pushSwitch").bootstrapSwitch('toggleDisabled', true);
-		console.warn("--- Service workers aren't supported in this browser.");  
+		console.warn("--- Service workers aren't supported in this browser."); 
+        $("#errorMessage").html("Service workers aren't supported in this browser.").show();
 	} 
 }
 
@@ -38,13 +49,15 @@ function initializeState(){
 	// Check notifications.
 	if(!'showNotification' in ServiceWorkerRegistration.prototype){
 		console.warn("--- Notifications aren't supported.");
+        $("#errorMessage").html("Notifications aren't supported.").show();
 		return;
 	}
     console.log("--- Notifications supported.");
 	
 	// Check for push messaging.
 	if(!'PushManager' in window){
-		console.warn("---Push messaging isn't supported.");
+		console.warn("--- Push messaging isn't supported.");
+        $("#errorMessage").html("Push messaging isn't supported.").show();
 		return;
 	}
     console.log("--- PushManager supported.");
@@ -60,6 +73,7 @@ function initializeState(){
             })
             .catch(function(error){
                 console.error("--- Error during getSubscription() ", error);
+                $("#errorMessage").html("Error during getSubscription(): "+error).show();
             });
 	});
 	
@@ -83,10 +97,12 @@ function subscribe(){
             .catch(function(error){
                 if(Notification.permission === 'denied'){
                     console.warn('--- Permission for Notifications was denied.');
+                    $("#errorMessage").html("Permission for Notifications was denied.").show();
                     $("input#pushSwitch").bootstrapSwitch('disabled', true);
                 } 
                 else{
                     console.warn('--- Unable to subscribe.');
+                    $("#errorMessage").html("Unable to subscribe.").show();
                     $("input#pushSwitch").bootstrapSwitch('disabled', true);
                 }
             });
@@ -118,11 +134,29 @@ function unsubscribe(){
             })
             .catch(function(error){
                 console.error("--- Unsubscription error: ", error);
+                $("#errorMessage").html("Unsubscription error: "+error).show();
                 $("input#pushSwitch").bootstrapSwitch('disabled', false);
             });
         })
         .catch(function(error){
             console.error("--- Push manager unsubscription error. ", error);
+            $("#errorMessage").html("Push manager unsubscription error.").show();
         });
     });
 }
+
+navigator.sayswho = (function(){
+    var ua= navigator.userAgent, tem, 
+    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1]=== 'Chrome'){
+        tem= ua.match(/\bOPR\/(\d+)/);
+        if(tem!= null) return 'Opera '+tem[1];
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+    return M.join(' ');
+})();

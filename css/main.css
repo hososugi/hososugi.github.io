@@ -17,6 +17,8 @@
 
 #errorMessage{
     display:        none;
+    text-align:     center;
+    color:          red;
 }
 
 .row{
