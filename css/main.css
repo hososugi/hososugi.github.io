@@ -24,3 +24,10 @@
 .row{
     margin:         10px auto;
 }
+
+#curlCommandRow{
+    display:        none;
+}
+#curlCommand{
+    width:          100%;
+}

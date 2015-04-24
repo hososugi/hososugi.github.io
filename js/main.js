@@ -92,7 +92,9 @@ function subscribe(){
                 $("input#pushSwitch").bootstrapSwitch('disabled', false);
                 $.cookie("subscriptionId", subscription.subscriptionId);
                 
-                $("#curlCommand").html('curl --header "Authorization: key=AIzaSyCMcxdbY8D9OMXxgPOw40IBneEo9gkoe5g" --header "Content-Type: application/json" https://android.googleapis.com/gcm/send -d "{\\"registration_ids\\":[\\"'+subscription.subscriptionId+'\\"]}"');
+                //$("#curlCommand").html('curl --header "Authorization: key=AIzaSyCMcxdbY8D9OMXxgPOw40IBneEo9gkoe5g" --header "Content-Type: application/json" https://android.googleapis.com/gcm/send -d "{\\"registration_ids\\":[\\"'+subscription.subscriptionId+'\\"]}"').show();
+                $("#curlCommand").html(subscription.subscriptionId);
+                $("#curlCommandRow").show();
             })
             .catch(function(error){
                 if(Notification.permission === 'denied'){
@@ -115,6 +117,7 @@ function unsubscribe(){
     // Disable the button while working.
     $("input#pushSwitch").bootstrapSwitch('disabled', true);
     $.removeCookie("subscriptionId");
+    $("#curlCommandRow").hide();
     
     navigator.serviceWorker.ready.then(function(ServiceWorkerRegistration){
         ServiceWorkerRegistration.pushManager.getSubscription().then(function(pushSubscription){
