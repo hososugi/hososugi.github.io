@@ -3,7 +3,7 @@ self.addEventListener('push', function(event){
     
     var title = "Push Notification Test";
     var body =  "Testing Chrome's new push notification. -Daniel Wheeler";
-    var icon =  "images/bell_notification_192.png";
+    var icon =  "images/cloud_notifications_outlined_192.png";
     var tag =   "dew-push-demo-tag";
     
     event.waitUntil(
