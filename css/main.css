@@ -1,0 +1,24 @@
+
+
+#header{
+	position:		relative;
+	color: 			#FFFFFF;
+	padding:		30px;
+	margin-bottom:  20px;
+	text-align:		center;
+
+	background: #1e5799;
+
+}
+
+#notificationSwitch{
+	height:			32px;
+}
+
+#errorMessage{
+    display:        none;
+}
+
+.row{
+    margin:         10px auto;
+}

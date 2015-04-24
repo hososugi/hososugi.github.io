@@ -1,0 +1,49 @@
+<!DOCTYPE html
+<html lang="en" dir="ltr">
+<head>
+    <title>Google Push Notifications Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="libs/bootstrap-3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="libs/bootstrap-switch-master/css/bootstrap3/bootstrap-switch.min.css" />
+    <link rel="manifest" href="manifest.json">
+
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script src="libs/jquery-2.1.3/jquery-2.1.3.min.js"></script>
+    <script src="libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="libs/jquery-cookie/jquery.cookie.js"></script>
+    <script src="libs/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script src="libs/bootstrap-switch-master/js/bootstrap-switch.min.js"></script>
+
+    <script src="js/main.js"></script>
+</head>
+<body>
+
+    <div id="header">
+
+        <div class="container">
+            <h1>Push Notifications</h1>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div id="notificationSwitch" class="col-xs-12 text-center">
+                    <input id="pushSwitch" name="pushSwitch" type="checkbox" checked />				
+            </div>
+        </div>
+        <div class="row">
+            <div id="errorMessage" class="col-xs-12">
+                [Error]
+            </div>
+        </div>
+        <div class="row">
+            <div id="curlCommand" class="col-xs-12"></div>
+        </div>
+    </div>
+
+</body>
+</html>
